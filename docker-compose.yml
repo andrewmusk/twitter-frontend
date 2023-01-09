@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  app:
+    container_name: twitter-frontend
+    image: twitter-frontend
+    build:
+      context: .
+    volumes:
+      - ./src:/src
+    ports:
+      - 3000:3000
+    command: npm start
+    stdin_open: true
