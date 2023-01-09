@@ -25,7 +25,9 @@
   font-size: 15px;
 }
 
-.post__headerText > h3 {
+.post__headerText {
+  display: flex;
+  justify-content: space-between;
   font-size: 15px;
   margin-bottom: 5px;
 }

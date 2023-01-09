@@ -1,34 +1,37 @@
 import React, { useState } from "react";
 import "./TweetBox.css";
 import { Avatar, Button } from "@material-ui/core";
-import db from "./firebase";
+import axios from 'axios';
+import "./constant"
+import { currentUser } from "./constant";
 
-function TweetBox() {
+function TweetBox(setData) {
   const [tweetMessage, setTweetMessage] = useState("");
   const [tweetImage, setTweetImage] = useState("");
 
-  const sendTweet = (e) => {
+  const sendTweet = async (e) => {
     e.preventDefault();
 
-    db.collection("posts").add({
-      displayName: "Rafeh Qazi",
-      username: "cleverqazi",
-      verified: true,
-      text: tweetMessage,
-      image: tweetImage,
-      avatar:
-        "https://kajabi-storefronts-production.global.ssl.fastly.net/kajabi-storefronts-production/themes/284832/settings_images/rLlCifhXRJiT0RoN2FjK_Logo_roundbackground_black.png",
-    });
-
+    const response = await axios.post(
+      "http://localhost:8000/create_tweet",
+      {
+        "user_id": currentUser.id,
+        "body": tweetMessage,
+        "retweet_id": null,
+        "reply_tweet_id": null,
+      },
+    );
+    
     setTweetMessage("");
     setTweetImage("");
+    setData(response);
   };
 
   return (
     <div className="tweetBox">
       <form>
         <div className="tweetBox__input">
-          <Avatar src="https://kajabi-storefronts-production.global.ssl.fastly.net/kajabi-storefronts-production/themes/284832/settings_images/rLlCifhXRJiT0RoN2FjK_Logo_roundbackground_black.png" />
+          <Avatar src={"elon_profile.jpeg"} />
           <input
             onChange={(e) => setTweetMessage(e.target.value)}
             value={tweetMessage}

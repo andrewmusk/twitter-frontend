@@ -22,6 +22,7 @@ const useFetchData = (url) => {
   return {
     data,
     loading,
+    setData
   };
 };
 

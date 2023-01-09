@@ -8,12 +8,12 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import PublishIcon from "@material-ui/icons/Publish";
 
 const Post = forwardRef(
-  ({ displayName, username, verified, text }, ref) => {
+  ({ displayName, username, verified, text, timestamp }, ref) => {
     return (
       <div className="post" ref={ref}>
-        {/* <div className="post__avatar">
-          <Avatar src={avatar} />
-        </div> */}
+        <div className="post__avatar">
+          <Avatar src={"elon_profile.jpeg"} />
+        </div>
         <div className="post__body">
           <div className="post__header">
             <div className="post__headerText">
@@ -24,6 +24,7 @@ const Post = forwardRef(
                   {username}
                 </span>
               </h3>
+              <div>{timestamp}</div>
             </div>
             <div className="post__headerDescription">
               <p>{text}</p>
