@@ -32,6 +32,8 @@ function FeedItems({ onScroll, listInnerRef, items }) {
                 verified={true}
                 text={post.body}
                 timestamp={timestamp}
+                num_likes={post.num_likes}
+                is_liked={post.user_liked}
             />)
         })}
       </div>

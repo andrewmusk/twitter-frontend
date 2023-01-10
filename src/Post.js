@@ -8,7 +8,8 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import PublishIcon from "@material-ui/icons/Publish";
 
 const Post = forwardRef(
-  ({ displayName, username, verified, text, timestamp }, ref) => {
+  ({ displayName, username, verified, text, timestamp, num_likes, is_liked}, ref) => {
+    let like_color = is_liked > 0 ? '#ff0000' : '#808080'
     return (
       <div className="post" ref={ref}>
         <div className="post__avatar">
@@ -34,7 +35,8 @@ const Post = forwardRef(
           <div className="post__footer">
             <ChatBubbleOutlineIcon fontSize="small" onClick={() => console.log("working")}/>
             <RepeatIcon fontSize="small" />
-            <FavoriteBorderIcon fontSize="small" />
+            <FavoriteBorderIcon style={{ color: like_color}} fontSize="small"/>
+            {num_likes}
             <PublishIcon fontSize="small" />
           </div>
         </div>
