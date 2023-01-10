@@ -20,7 +20,7 @@ function Feed() {
       const response = await axios.get(
         `http://localhost:8000/tweets/user/${currentUser.id}/page/${currPage}/page_size/20`
       );
-      
+      console.log("request")
       if (!response.data.items.length) {
         setLastList(true);
         return;
@@ -37,7 +37,9 @@ function Feed() {
     if (listInnerRef.current) {
       const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
       console.log(scrollTop)
-      if (scrollTop + clientHeight === scrollHeight) {
+      console.log(scrollHeight)
+      console.log(clientHeight)
+      if ((scrollTop + clientHeight) + 100 >= scrollHeight) {
         setCurrPage(currPage + 1);
       }
     }

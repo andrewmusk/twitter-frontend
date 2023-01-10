@@ -2,6 +2,7 @@ import React  from "react";
 import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en'
 import Post from "./Post";
+import "./Feed.css";
 
 TimeAgo.addDefaultLocale(en)
 
@@ -10,6 +11,7 @@ function FeedItems({ onScroll, listInnerRef, items }) {
 
   return (
       <div
+        className="feed_items"
         onScroll={onScroll}
         ref={listInnerRef}
         style={{ height: "100vh", overflowY: "auto" }}
