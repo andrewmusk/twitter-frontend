@@ -45,6 +45,21 @@ function Feed() {
     }
   };
 
+  function updateTweetLike(id) {
+    // Create a new copy of the users array with the updated user
+    const updatedItems = items.map((item) => {
+      if (item.id === id) {
+        // Return a new object with the updated name
+        return { ...item, num_likes: item.num_likes+1, user_liked: true};
+      }
+      // Return the original object if no updates are needed
+      return item;
+    });
+
+    // Set the state with the updated users array
+    setItems(updatedItems);
+  }
+
   function updateData(response) {
     setItems([response, ...items])
   }
@@ -62,6 +77,7 @@ function Feed() {
           onScroll={onScroll}
           listInnerRef={listInnerRef}
           items={items}
+          updateTweetLike={updateTweetLike}
         />
       </FlipMove>
     </div>

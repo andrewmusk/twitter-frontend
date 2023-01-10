@@ -6,7 +6,7 @@ import "./Feed.css";
 
 TimeAgo.addDefaultLocale(en)
 
-function FeedItems({ onScroll, listInnerRef, items }) {
+function FeedItems({ onScroll, listInnerRef, items, updateTweetLike }) {
     const timeAgo = new TimeAgo('en-US');
 
   return (
@@ -36,7 +36,8 @@ function FeedItems({ onScroll, listInnerRef, items }) {
                 text={post.body}
                 timestamp={timestamp}
                 num_likes={post.num_likes}
-                is_liked={post.user_liked}
+                user_liked={post.user_liked}
+                updateTweetLike={updateTweetLike}
             />)
         })}
       </div>
