@@ -21,10 +21,10 @@ function TweetBox(setItems) {
         "reply_tweet_id": null,
       },
     );
-    
+
     setTweetMessage("");
     setTweetImage("");
-    setItems(response);
+    setItems.setItems({...response.data, username: currentUser.username, display_name: currentUser.displayName});
   };
 
   return (
