@@ -11,7 +11,7 @@ import axios from "axios";
 import {currentUser} from "./constant";
 
 const Post = forwardRef(
-  ({ key, tweetId, displayName, username, verified, text, timestamp, num_likes, user_liked, updateTweetLike}, ref) => {
+  ({ key, tweetId, displayName, username, verified, text, timestamp, num_likes, user_liked, updateTweetLike, storeRetweet}, ref) => {
     let like_color = user_liked > 0 ? '#ff0000' : '#808080'
 
     const retweetTweet = async (e) => {
@@ -22,11 +22,13 @@ const Post = forwardRef(
           "http://localhost:8000/create_tweet",
           {
               "user_id": currentUser.id,
-              "body": text,
+              "body": `RT ${username}:` + text,
               "retweet_id": tweetId,
               "reply_tweet_id": null,
           },
       );
+
+      storeRetweet()
     };
 
     const likeTweet = async (e) => {

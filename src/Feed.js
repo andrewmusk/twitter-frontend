@@ -11,10 +11,11 @@ import FeedItems from "./FeedItems";
 function Feed() {
   const listInnerRef = useRef();
   const [currPage, setCurrPage] = useState(0);
+  const [loading, setLoading] = useState(false);
   const [prevPage, setPrevPage] = useState(-1);
   const [items, setItems] = useState([]);
   const [lastList, setLastList] = useState(false);
-  const [seenPages, setSeenPages] = useState([]);
+  const [retweets, setRetweets] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,10 +28,16 @@ function Feed() {
         setLastList(true);
         return;
       }
-      setSeenPages([...seenPages, currPage -1])
+      
       setPrevPage(currPage);
       setItems([...items, ...response.data.items]);
+      console.log("setting items: " + items.length + " " + response.data.items.length)
+      setLoading(false);
     };
+
+    console.log("Pre request")
+    console.log("prev: " + prevPage)
+    console.log("curr: " + currPage)
     if (!lastList && prevPage !== currPage) {
       fetchData();
     }
@@ -39,8 +46,12 @@ function Feed() {
   const onScroll = () => {
     if (listInnerRef.current) {
       const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
-      if ((scrollTop + clientHeight) == scrollHeight) {
-        setCurrPage(currPage + 1);
+      const sum = (scrollTop + clientHeight)
+      if ((scrollTop + clientHeight + 100) >= scrollHeight) {
+          if (!loading) {
+            setLoading(true);
+            setCurrPage(currPage + 1);
+          }
       }
     }
   };
@@ -61,6 +72,10 @@ function Feed() {
     setItems(updatedItems);
   }
 
+  function storeRetweet() {
+
+  }
+
   function updateData(response) {
     setItems([response, ...items])
   }
@@ -79,6 +94,7 @@ function Feed() {
           listInnerRef={listInnerRef}
           items={items}
           updateTweetLike={updateTweetLike}
+          storeRetweet={storeRetweet}
         />
       </FlipMove>
     </div>

@@ -18,13 +18,7 @@ function Widgets() {
       <div className="widgets__widgetContainer">
         <h2>What's happening</h2>
 
-        <TwitterTweetEmbed tweetId={"1612591126258802690"} />
-
-        <TwitterTimelineEmbed
-          sourceType="profile"
-          screenName="elonmusk"
-          options={{ height: 400 }}
-        />
+        <TwitterTweetEmbed tweetId={"1612591126258802690"}/>
       </div>
     </div>
   );
