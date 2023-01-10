@@ -6,10 +6,28 @@ import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import RepeatIcon from "@material-ui/icons/Repeat";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import PublishIcon from "@material-ui/icons/Publish";
+import axios from "axios";
+import {currentUser} from "./constant";
 
 const Post = forwardRef(
-  ({ displayName, username, verified, text, timestamp, num_likes, is_liked}, ref) => {
+  ({ key, tweetId, displayName, username, verified, text, timestamp, num_likes, is_liked}, ref) => {
     let like_color = is_liked > 0 ? '#ff0000' : '#808080'
+
+    const retweetTweet = async (e) => {
+      console.log("retweeting tweet" + tweetId);
+      e.preventDefault();
+
+      const response = await axios.post(
+          "http://localhost:8000/create_tweet",
+          {
+              "user_id": currentUser.id,
+              "body": text,
+              "retweet_id": tweetId,
+              "reply_tweet_id": null,
+          },
+      );
+    };
+
     return (
       <div className="post" ref={ref}>
         <div className="post__avatar">
@@ -34,7 +52,7 @@ const Post = forwardRef(
           {/* <img src={image} alt="" /> */}
           <div className="post__footer">
             <ChatBubbleOutlineIcon fontSize="small" onClick={() => console.log("working")}/>
-            <RepeatIcon fontSize="small" />
+            <RepeatIcon fontSize="small" onClick={retweetTweet}/>
             <FavoriteBorderIcon style={{ color: like_color}} fontSize="small"/>
             {num_likes}
             <PublishIcon fontSize="small" />

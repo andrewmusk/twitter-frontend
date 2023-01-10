@@ -29,6 +29,7 @@ function FeedItems({ onScroll, listInnerRef, items }) {
             return (
             <Post
                 key={post.id}
+                tweetId={post.id}
                 displayName={post.display_name}
                 username={post.username}
                 verified={true}
