@@ -1,25 +1,51 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import TweetBox from "./TweetBox";
-import Post from "./Post";
 import "./Feed.css";
-import useFetchData from './axiosFetch'
 import FlipMove from "react-flip-move";
-import TimeAgo from 'javascript-time-ago'
-import en from 'javascript-time-ago/locale/en'
 import "./constant"
 import { currentUser } from "./constant";
-
-TimeAgo.addDefaultLocale(en)
+import axios from 'axios';
+import { CircularProgress } from "@material-ui/core";
+import FeedItems from "./FeedItems";
 
 function Feed() {
-  const {
-    data,
-    loading,
-    setData
-  } = useFetchData(`http://localhost:8000/tweets/user/${currentUser.id}/page/0/page_size/20`);
+  const listInnerRef = useRef();
+  const [currPage, setCurrPage] = useState(1);
+  const [prevPage, setPrevPage] = useState(0);
+  const [items, setItems] = useState([]);
+  const [lastList, setLastList] = useState(false);
 
-  const timeAgo = new TimeAgo('en-US')
-  const posts = data.items || [];
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get(
+        `http://localhost:8000/tweets/user/${currentUser.id}/page/${currPage}/page_size/20`
+      );
+      
+      if (!response.data.items.length) {
+        setLastList(true);
+        return;
+      }
+      setPrevPage(currPage);
+      setItems([...items, ...response.data.items]);
+    };
+    if (!lastList && prevPage !== currPage) {
+      fetchData();
+    }
+  }, [currPage, lastList, prevPage, items]);
+
+  const onScroll = () => {
+    if (listInnerRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
+      console.log(scrollTop)
+      if (scrollTop + clientHeight === scrollHeight) {
+        setCurrPage(currPage + 1);
+      }
+    }
+  };
+
+  function updateData(response) {
+    setItems([response, ...items])
+  }
 
   return (
     <div className="feed">
@@ -27,36 +53,17 @@ function Feed() {
         <h2>Home</h2>
       </div>
 
-      <TweetBox setData={updateData} />
+      <TweetBox setItems={updateData} />
 
       <FlipMove>
-        {posts.map((post) => {
-          var utcSeconds = post.created_at;
-          var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
-          if (!!utcSeconds) {
-            d.setUTCSeconds(utcSeconds);
-          } else {
-            d.setUTCSeconds(1000000);
-          }
-          
-          const timestamp = timeAgo.format(d)
-          return (
-          <Post
-            key={post.id}
-            displayName={post.display_name}
-            username={post.username}
-            verified={true}
-            text={post.body}
-            timestamp={timestamp}
-          />)
-        })}
+        <FeedItems
+          onScroll={onScroll}
+          listInnerRef={listInnerRef}
+          items={items}
+        />
       </FlipMove>
     </div>
   );
-
-  function updateData(response) {
-    setData([response, ...data])
-  }
 }
 
 export default Feed;

@@ -15,7 +15,8 @@
     "react-flip-move": "^3.0.4",
     "react-scripts": "3.4.1",
     "react-twitter-embed": "^3.0.3",
-    "javascript-time-ago": "2.5.9"
+    "javascript-time-ago": "2.5.9",
+    "react-infinite-scroll-component": "6.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

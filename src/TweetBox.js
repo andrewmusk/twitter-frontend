@@ -5,7 +5,7 @@ import axios from 'axios';
 import "./constant"
 import { currentUser } from "./constant";
 
-function TweetBox(setData) {
+function TweetBox(setItems) {
   const [tweetMessage, setTweetMessage] = useState("");
   const [tweetImage, setTweetImage] = useState("");
 
@@ -24,7 +24,7 @@ function TweetBox(setData) {
     
     setTweetMessage("");
     setTweetImage("");
-    setData(response);
+    setItems(response);
   };
 
   return (
