@@ -28,6 +28,19 @@ const Post = forwardRef(
       );
     };
 
+    const likeTweet = async (e) => {
+      console.log("liking tweet" + tweetId);
+      e.preventDefault();
+
+      const response = await axios.post(
+          "http://localhost:8000/like_tweet",
+          {
+              "user_id": currentUser.id,
+              "tweet_id": tweetId,
+          },
+      );
+    };
+
     return (
       <div className="post" ref={ref}>
         <div className="post__avatar">
@@ -53,7 +66,7 @@ const Post = forwardRef(
           <div className="post__footer">
             <ChatBubbleOutlineIcon fontSize="small" onClick={() => console.log("working")}/>
             <RepeatIcon fontSize="small" onClick={retweetTweet}/>
-            <FavoriteBorderIcon style={{ color: like_color}} fontSize="small"/>
+            <FavoriteBorderIcon style={{ color: like_color}} onClick={likeTweet} fontSize="small"/>
             {num_likes}
             <PublishIcon fontSize="small" />
           </div>
