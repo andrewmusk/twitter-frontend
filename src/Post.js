@@ -32,7 +32,7 @@ const Post = forwardRef(
           </div>
           {/* <img src={image} alt="" /> */}
           <div className="post__footer">
-            <ChatBubbleOutlineIcon fontSize="small" />
+            <ChatBubbleOutlineIcon fontSize="small" onClick={() => console.log("working")}/>
             <RepeatIcon fontSize="small" />
             <FavoriteBorderIcon fontSize="small" />
             <PublishIcon fontSize="small" />
