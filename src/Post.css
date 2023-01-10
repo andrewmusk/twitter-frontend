@@ -9,6 +9,7 @@
 .post__body {
   flex: 1;
   padding: 10px;
+  padding-bottom: 5px;
 }
 
 .post__body > img {
@@ -19,6 +20,7 @@
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
+  color: "gray"
 }
 
 .post__headerDescription {
@@ -40,10 +42,15 @@
 
 .post__headerSpecial {
   font-weight: 600;
-  font-size: 12px;
+  font-size: 13px;
   color: gray;
 }
 
 .post__avatar {
-  padding: 20px;
+  padding: 15px;
+}
+
+.post_icon {
+  color: "gray";
+  cursor: "pointer"
 }

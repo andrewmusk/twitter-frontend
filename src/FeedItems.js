@@ -25,7 +25,7 @@ function FeedItems({ onScroll, listInnerRef, items }) {
             d.setUTCSeconds(1000000);
             }
     
-            const timestamp = timeAgo.format(d)
+            const timestamp = timeAgo.format(d, 'mini')
             return (
             <Post
                 key={post.id}

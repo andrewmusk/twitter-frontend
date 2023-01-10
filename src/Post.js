@@ -54,9 +54,10 @@ const Post = forwardRef(
                 <span className="post__headerSpecial">
                   {verified && <VerifiedUserIcon className="post__badge" />} @
                   {username}
+
+                  <span style={{marginLeft: 5}}>{timestamp}</span>
                 </span>
               </h3>
-              <div>{timestamp}</div>
             </div>
             <div className="post__headerDescription">
               <p>{text}</p>
@@ -64,11 +65,17 @@ const Post = forwardRef(
           </div>
           {/* <img src={image} alt="" /> */}
           <div className="post__footer">
-            <ChatBubbleOutlineIcon fontSize="small" onClick={() => console.log("working")}/>
-            <RepeatIcon fontSize="small" onClick={retweetTweet}/>
+
+            
+  
+            <ChatBubbleOutlineIcon style={{ cursor: "pointer", color: "gray"}} fontSize="small" onClick={() => console.log("working")}/>
+            <RepeatIcon style={{ cursor: "pointer", color: "gray"}} fontSize="small" onClick={retweetTweet}/>
+            <div style={{display: "flex", alignItems: "center", cursor: "pointer"}}>
             <FavoriteBorderIcon style={{ color: like_color}} onClick={likeTweet} fontSize="small"/>
-            {num_likes}
-            <PublishIcon fontSize="small" />
+            <p style={{ marginLeft: "10px", fontSize: "15px", color: "gray"}}>{num_likes}</p>
+            </div>
+            <PublishIcon style={{ cursor: "pointer", color: "gray"}} fontSize="small" />
+
           </div>
         </div>
       </div>
