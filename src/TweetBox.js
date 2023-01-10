@@ -31,7 +31,7 @@ function TweetBox(setItems) {
     <div className="tweetBox">
       <form>
         <div className="tweetBox__input">
-          <Avatar src={"elon_profile.jpeg"} />
+          <Avatar src={""} />
           <input
             onChange={(e) => setTweetMessage(e.target.value)}
             value={tweetMessage}
@@ -39,14 +39,6 @@ function TweetBox(setItems) {
             type="text"
           />
         </div>
-        <input
-          value={tweetImage}
-          onChange={(e) => setTweetImage(e.target.value)}
-          className="tweetBox__imageInput"
-          placeholder="Optional: Enter image URL"
-          type="text"
-        />
-
         <Button
           onClick={sendTweet}
           type="submit"

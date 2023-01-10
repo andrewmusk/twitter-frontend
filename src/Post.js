@@ -47,7 +47,7 @@ const Post = forwardRef(
     return (
       <div className="post" ref={ref}>
         <div className="post__avatar">
-          <Avatar src={"elon_profile.jpeg"} />
+          <Avatar src={"https://www.google.com/url?sa=i&url=https%3A%2F%2Ftwitter.com%2Felonmusk&psig=AOvVaw1Qk8CVxxGOA8KYbwjoHyiT&ust=1673406528063000&source=images&cd=vfe&ved=0CA8QjRxqFwoTCPjTwJ-DvPwCFQAAAAAdAAAAABAD"} />
         </div>
         <div className="post__body">
           <div className="post__header">
@@ -70,13 +70,13 @@ const Post = forwardRef(
           <div className="post__footer">
             <ChatBubbleOutlineIcon style={{ cursor: "pointer", color: "gray"}} fontSize="small" onClick={() => console.log("working")}/>
             <RepeatIcon style={{ cursor: "pointer", color: "gray"}} fontSize="small" onClick={retweetTweet}/>
-            <div style={{display: "flex", alignItems: "center", cursor: "pointer"}}>
+            <div style={{display: "flex", alignItems: "center", cursor: "pointer", marginRight: "30px"}}>
               {user_liked ? <FavoriteIcon style={{ color: like_color}} fontSize="small"/> :
               <FavoriteBorderIcon style={{ color: like_color}} onClick={likeTweet} fontSize="small"/>  
             }
               <p style={{ marginLeft: "10px", fontSize: "15px", color: "gray"}}>{num_likes}</p>
             </div>
-            <PublishIcon style={{ cursor: "pointer", color: "gray"}} fontSize="small" />
+            {/* <PublishIcon style={{ cursor: "pointer", color: "gray"}} fontSize="small" /> */}
           </div>
         </div>
       </div>

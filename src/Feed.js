@@ -10,21 +10,24 @@ import FeedItems from "./FeedItems";
 
 function Feed() {
   const listInnerRef = useRef();
-  const [currPage, setCurrPage] = useState(1);
-  const [prevPage, setPrevPage] = useState(0);
+  const [currPage, setCurrPage] = useState(0);
+  const [prevPage, setPrevPage] = useState(-1);
   const [items, setItems] = useState([]);
   const [lastList, setLastList] = useState(false);
+  const [seenPages, setSeenPages] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log("making requests for page: " + currPage)
       const response = await axios.get(
-        `http://localhost:8000/tweets/user/${currentUser.id}/page/${currPage - 1}/page_size/20`
+        `http://localhost:8000/tweets/user/${currentUser.id}/page/${currPage}/page_size/20`
       );
-      console.log("request")
+      
       if (!response.data.items.length) {
         setLastList(true);
         return;
       }
+      setSeenPages([...seenPages, currPage -1])
       setPrevPage(currPage);
       setItems([...items, ...response.data.items]);
     };
@@ -36,10 +39,7 @@ function Feed() {
   const onScroll = () => {
     if (listInnerRef.current) {
       const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
-      console.log(scrollTop)
-      console.log(scrollHeight)
-      console.log(clientHeight)
-      if ((scrollTop + clientHeight) + 100 >= scrollHeight) {
+      if ((scrollTop + clientHeight) == scrollHeight) {
         setCurrPage(currPage + 1);
       }
     }
@@ -50,7 +50,8 @@ function Feed() {
     const updatedItems = items.map((item) => {
       if (item.id === id) {
         // Return a new object with the updated name
-        return { ...item, num_likes: item.num_likes+1, user_liked: true};
+        const likes = !!item.num_likes ? item.num_likes : 0
+        return { ...item, num_likes: likes+1, user_liked: true};
       }
       // Return the original object if no updates are needed
       return item;
