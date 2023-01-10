@@ -18,7 +18,7 @@ function Feed() {
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get(
-        `http://localhost:8000/tweets/user/${currentUser.id}/page/${currPage}/page_size/20`
+        `http://localhost:8000/tweets/user/${currentUser.id}/page/${currPage - 1}/page_size/20`
       );
       console.log("request")
       if (!response.data.items.length) {
