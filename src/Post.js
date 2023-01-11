@@ -10,8 +10,10 @@ import PublishIcon from "@material-ui/icons/Publish";
 import axios from "axios";
 import {currentUser} from "./constant";
 
-const Post = forwardRef(
-  ({ key, tweetId, displayName, username, verified, text, timestamp, num_likes, user_liked, updateTweetLike}, ref) => {
+const Post = forwardRef((
+    { key, tweetId, displayName, username, verified, text, timestamp, num_likes,
+        user_liked, num_retweets, user_retweeted, num_replies, updateTweetLike}, ref
+    ) => {
     let like_color = user_liked > 0 ? '#ff0000' : '#808080'
 
     const retweetTweet = async (e) => {
@@ -68,12 +70,24 @@ const Post = forwardRef(
           </div>
           {/* <img src={image} alt="" /> */}
           <div className="post__footer">
-            <ChatBubbleOutlineIcon style={{ cursor: "pointer", color: "gray"}} fontSize="small" onClick={() => console.log("working")}/>
-            <RepeatIcon style={{ cursor: "pointer", color: "gray"}} fontSize="small" onClick={retweetTweet}/>
+
             <div style={{display: "flex", alignItems: "center", cursor: "pointer", marginRight: "30px"}}>
-              {user_liked ? <FavoriteIcon style={{ color: like_color}} fontSize="small"/> :
-              <FavoriteBorderIcon style={{ color: like_color}} onClick={likeTweet} fontSize="small"/>  
-            }
+                <ChatBubbleOutlineIcon style={{ cursor: "pointer", color: "gray"}} fontSize="small" onClick={() => console.log("working")}/>
+                <p style={{ marginLeft: "10px", fontSize: "15px", color: "gray"}}>{num_replies}</p>
+            </div>
+            <div style={{display: "flex", alignItems: "center", cursor: "pointer", marginRight: "30px"}}>
+                {user_retweeted ?
+                    <RepeatIcon style={{ cursor: "pointer", color: "green"}} fontSize="small" onClick={retweetTweet}/> :
+                    <RepeatIcon style={{ cursor: "pointer", color: "gray"}} fontSize="small" onClick={retweetTweet}/>
+                }
+
+                <p style={{ marginLeft: "10px", fontSize: "15px", color: "gray"}}>{num_retweets}</p>
+            </div>
+            <div style={{display: "flex", alignItems: "center", cursor: "pointer", marginRight: "30px"}}>
+              {user_liked ?
+                  <FavoriteIcon style={{ color: like_color}} fontSize="small"/> :
+                  <FavoriteBorderIcon style={{ color: like_color}} onClick={likeTweet} fontSize="small"/>
+              }
               <p style={{ marginLeft: "10px", fontSize: "15px", color: "gray"}}>{num_likes}</p>
             </div>
             {/* <PublishIcon style={{ cursor: "pointer", color: "gray"}} fontSize="small" /> */}

@@ -37,6 +37,9 @@ function FeedItems({ onScroll, listInnerRef, items, updateTweetLike }) {
                 timestamp={timestamp}
                 num_likes={post.num_likes}
                 user_liked={post.user_liked}
+                num_retweets={post.num_retweets}
+                num_replies={post.num_replies}
+                user_retweeted={post.user_retweeted}
                 updateTweetLike={updateTweetLike}
             />)
         })}
