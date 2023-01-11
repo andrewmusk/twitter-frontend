@@ -38,7 +38,10 @@ function FeedItems({ onScroll, listInnerRef, items, updateTweetLike, storeRetwee
                 num_likes={post.num_likes}
                 user_liked={post.user_liked}
                 updateTweetLike={updateTweetLike}
+                num_retweets={post.num_retweets}
+                user_retweeted={post.user_retweeted}
                 storeRetweet={storeRetweet}
+                num_replies={post.num_replies}
             />)
         })}
       </div>
